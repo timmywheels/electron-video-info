@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video Info</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+<h1>Video Info</h1>
+<form>
+    <div>
+        <label for="">Select a video</label>
+        <input type="file" accept="video/*">
+    </div>
+    <button type="submit">Get Info</button>
+</form>
+
+<script>
+
+    const electron = require('electron');
+    const ffmpeg = require('fluent-ffmpeg')
+
+    const { ipcRenderer } = electron; // communicate from BrowserWindow back to Electron side of app
+
+
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+        event.preventDefault()
+        const file = document.querySelector('input').files[0]
+        // debugger
+        console.log(file)
+
+        ffmpeg.ffprobe(file.path, (err, data) => {
+            console.log(data);
+        })
+
+    })
+</script>
+
+<!--<script src="index.js"></script>-->
+</body>
+</html>
