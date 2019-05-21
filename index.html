@@ -17,7 +17,9 @@
     </div>
     <button type="submit">Get Info</button>
 </form>
-
+<div>
+    <p id="metadata"></p>
+</div>
 <script>
 
     const electron = require('electron');
@@ -29,17 +31,20 @@
 
     document.querySelector('form').addEventListener('submit', (event) => {
         event.preventDefault()
-        const file = document.querySelector('input').files[0]
+        const { path } = document.querySelector('input').files[0]
         // debugger
-        console.log(file)
+        console.log(path)
 
-        ffmpeg.ffprobe(file.path, (err, data) => {
-            console.log(data);
-        })
+        ipcRenderer.send('video:submit', path)
 
     })
+
+    ipcRenderer.on('video:metadata', (event, duration) => {
+        document.querySelector('#metadata').innerHTML = `<h3><i>Video Duration: ${duration} seconds</i></h3>`
+    })
+
 </script>
 
-<!--<script src="index.js"></script>-->
+<script src="index.js"></script>
 </body>
 </html>

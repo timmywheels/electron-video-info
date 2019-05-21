@@ -8,5 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/ffmpeg-static" level="application" />
+    <orderEntry type="library" name="@types/electron-window-state" level="application" />
   </component>
 </module>
